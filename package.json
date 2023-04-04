@@ -1,0 +1,25 @@
+{
+  "name": "com.pixygon.ipfs",
+  "version": "0.5.0",
+  "displayName": "Pixygon - IPFS",
+  "description": "Get files from IPFS and turn them into spawnable gameobjects!",
+  "unity": "2022.2",
+  "unityRelease": "13f1",
+  "documentationUrl": "https://www.pixygon.io/dev/ipfs",
+  "changelogUrl": "https://www.pixygon.io/dev/ipfs/changelog",
+  "licensesUrl": "https://www.pixygon.io/dev/ipfs/license",
+  "dependencies": {
+    "com.pixygon.debugtool": "0.5.4"
+ },
+"hideInEditor": false,
+ "keywords": [
+    "Pixygon",
+    "IPFS",
+    "NFT"
+  ],
+  "author": {
+    "name": "Pixygon",
+    "email": "pixygon@pixygon.io",
+    "url": "https://www.pixygon.io"
+  }
+}
