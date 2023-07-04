@@ -11,7 +11,7 @@ namespace Pixygon.IPFS {
         public async Task<GameObject> ConstructIpfsObject(string template) {
             var ipfs = await IpfsBridge.GetIpfsFile<Object>(template);
             GameObject g = null;
-            if(gameObject == null)
+            if(this == null)
                 return null;
             switch(ipfs) {
                 case VideoData data:
