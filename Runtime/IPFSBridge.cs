@@ -23,6 +23,7 @@ namespace Pixygon.IPFS {
                 return await GetGif(www.downloadHandler.data) as T;
                 case "image/png":
                 case "image/jpg":
+                case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
                 case "video/mp4":
                 case "video/quicktime":
