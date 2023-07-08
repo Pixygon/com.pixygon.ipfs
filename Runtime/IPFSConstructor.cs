@@ -37,6 +37,7 @@ namespace Pixygon.IPFS {
                 case null:
                 default:
                 Debug.Log("Something went wrong... " + ipfs.GetType().ToString());
+                return null;
                 break;
             }
             return g;
