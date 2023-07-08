@@ -11,6 +11,8 @@ namespace Pixygon.IPFS {
         private const string IpfsUrl = "https://atomichub-ipfs.com/ipfs/";
 
         public static async Task<T> GetIpfsFile<T>(string hash) where T : Object {
+            //if(hash.Contains("http")
+            //   hash = hash.
             var www = UnityWebRequest.Get($"{IpfsUrl}{hash}");
             www.SendWebRequest();
             while(!www.isDone) await Task.Yield();
