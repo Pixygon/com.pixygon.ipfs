@@ -13,6 +13,8 @@ namespace Pixygon.IPFS {
             GameObject g = null;
             if(this == null)
                 return null;
+            if(ipfs == null)
+                return null;
             switch(ipfs) {
                 case VideoData data:
                 g = Instantiate(_videoPrefab, transform);
