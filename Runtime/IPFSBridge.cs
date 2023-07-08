@@ -11,8 +11,15 @@ namespace Pixygon.IPFS {
         private const string IpfsUrl = "https://atomichub-ipfs.com/ipfs/";
 
         public static async Task<T> GetIpfsFile<T>(string hash) where T : Object {
-            //if(hash.Contains("http")
-            //   hash = hash.
+            if (hash.Contains("http")) {
+                Debug.Log("Presplit hash: " + hash);
+                var split = hash.Split('/');
+                hash = split[split.Length-1];
+                foreach (var s in split) {
+                    Debug.Log("Split-part: " + s);
+                }
+                Debug.Log("Splitted hash: " + hash);
+            }
             var www = UnityWebRequest.Get($"{IpfsUrl}{hash}");
             www.SendWebRequest();
             while(!www.isDone) await Task.Yield();

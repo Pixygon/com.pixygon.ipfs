@@ -14,8 +14,8 @@ namespace Pixygon.IPFS {
             if(this == null)
                 return null;
             if(ipfs == null) { 
-                Debug.Log("IPFS-file is null!" + template);
-                return null; 
+                Debug.Log("IPFS-file is null! Will it crash and burn?? " + template);
+                //return null; 
             }
             switch(ipfs) {
                 case VideoData data:
