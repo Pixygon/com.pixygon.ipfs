@@ -11,12 +11,11 @@ namespace Pixygon.IPFS {
         public async Task<GameObject> ConstructIpfsObject(string template) {
             var ipfs = await IpfsBridge.GetIpfsFile<Object>(template);
             GameObject g = null;
-            if(this == null)
-                return null;
-            if(ipfs == null) { 
-                Debug.Log("IPFS-file is null! Will it crash and burn?? " + template);
-                //return null; 
-            }
+            if(this == null) return null;
+            //if(ipfs == null) { 
+            //    Debug.Log("IPFS-file is null! Will it crash and burn?? " + template);
+            //    //return null; 
+            //}
             switch(ipfs) {
                 case VideoData data:
                 g = Instantiate(_videoPrefab, transform);
@@ -33,8 +32,8 @@ namespace Pixygon.IPFS {
                 g.GetComponent<IPFSGif>().PlayGif(gif);
                 break;
                 case ErrorData error:
-                    Debug.Log("IFPS-error: " + error._error);
-                    return null;
+                Debug.Log("IFPS-error: " + error._error);
+                return null;
                 case null:
                 default:
                 Debug.Log("Something went wrong... " + ipfs.GetType().ToString());

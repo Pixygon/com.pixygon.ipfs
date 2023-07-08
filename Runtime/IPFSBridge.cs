@@ -15,13 +15,8 @@ namespace Pixygon.IPFS {
                 return new ErrorData("Hash is null!") as T;
             }
             if (hash.Contains("http")) {
-                Debug.Log("Presplit hash: " + hash);
                 var split = hash.Split('/');
                 hash = split[split.Length-1];
-                foreach (var s in split) {
-                    Debug.Log("Split-part: " + s);
-                }
-                Debug.Log("Splitted hash: " + hash);
             }
             var www = UnityWebRequest.Get($"{IpfsUrl}{hash}");
             www.SendWebRequest();
@@ -37,12 +32,13 @@ namespace Pixygon.IPFS {
                 case "image/jpg":
                 case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
+                case "image/webp":
+                return new ErrorData("WebP-type not yet added!") as T;
                 case "video/mp4":
                 case "video/quicktime":
                 return new VideoData(www.url) as T;
                 default:
-                Debug.Log("Missing type: " + www.GetResponseHeader("Content-Type"));
-                return null;
+                return new ErrorData($"Missing type: {www.GetResponseHeader("Content-Type")}") as T;
             }
         }
 
