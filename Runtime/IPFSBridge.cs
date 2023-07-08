@@ -12,8 +12,7 @@ namespace Pixygon.IPFS {
 
         public static async Task<T> GetIpfsFile<T>(string hash) where T : Object {
             if (string.IsNullOrEmpty(hash)) {
-                Debug.Log("Hash is null!!");
-                return null;
+                return new ErrorData("Hash is null!") as T;
             }
             if (hash.Contains("http")) {
                 Debug.Log("Presplit hash: " + hash);
@@ -90,6 +89,13 @@ namespace Pixygon.IPFS {
         public Sprite _sprite;
         public SpriteData(Sprite s) {
             _sprite = s;
+        }
+    }
+
+    public class ErrorData : Object {
+        public string _error;
+        public ErrorData(string s) {
+            _error = s;
         }
     }
 }

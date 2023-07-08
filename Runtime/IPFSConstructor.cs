@@ -32,6 +32,9 @@ namespace Pixygon.IPFS {
                 g = Instantiate(_gifPrefab, transform);
                 g.GetComponent<IPFSGif>().PlayGif(gif);
                 break;
+                case ErrorData error:
+                    Debug.Log("IFPS-error: " + error._error);
+                    return null;
                 case null:
                 default:
                 Debug.Log("Something went wrong... " + ipfs.GetType().ToString());
