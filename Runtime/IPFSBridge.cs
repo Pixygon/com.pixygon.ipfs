@@ -22,8 +22,8 @@ namespace Pixygon.IPFS {
             www.SendWebRequest();
             while(!www.isDone) await Task.Yield();
             if(www.error != null) {
-                Log.DebugMessage(DebugGroup.Nft, www.error + $"   {IpfsUrl}{hash}");
-                return null;
+                Log.DebugMessage(DebugGroup.Nft, $"{www.error}   {IpfsUrl}{hash}");
+                return new ErrorData($"{www.error}   {IpfsUrl}{hash}") as T;
             }
             switch(www.GetResponseHeader("Content-Type")) {
                 case "image/gif":
