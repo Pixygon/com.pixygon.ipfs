@@ -11,6 +11,10 @@ namespace Pixygon.IPFS {
         private const string IpfsUrl = "https://atomichub-ipfs.com/ipfs/";
 
         public static async Task<T> GetIpfsFile<T>(string hash) where T : Object {
+            if (string.IsNullOrEmpty(hash)) {
+                Debug.Log("Hash is null!!");
+                return null;
+            }
             if (hash.Contains("http")) {
                 Debug.Log("Presplit hash: " + hash);
                 var split = hash.Split('/');
