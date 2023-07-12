@@ -8,8 +8,8 @@ namespace Pixygon.IPFS {
         [SerializeField] private GameObject _gifPrefab;
         [SerializeField] private GameObject _videoPrefab;
         
-        public async Task<GameObject> ConstructIpfsObject(string template) {
-            var ipfs = await IpfsBridge.GetIpfsFile<Object>(template);
+        public async Task<GameObject> ConstructIpfsObject(string template, bool thumbnail = false) {
+            var ipfs = await IpfsBridge.GetIpfsFile<Object>(template, thumbnail);
             GameObject g = null;
             if(this == null) return null;
             //if(ipfs == null) { 
