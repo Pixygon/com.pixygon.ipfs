@@ -86,7 +86,10 @@ namespace Pixygon.IPFS {
         }
         private static async Task<Sprite> LoadWebPAnim(byte[] bytes) {
             var r = await WebP.Experiment.Animation.WebP.LoadTexturesAsync(bytes);
-            if (r == null) return null;
+            if (r == null) {
+                Debug.Log("This is null??");
+                return await LoadWebP(bytes);
+            }
             Sprite s = null;
             r.Stop();
             r.OnRender += t => {
