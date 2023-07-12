@@ -37,7 +37,7 @@ namespace Pixygon.IPFS {
                 case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
                 case "image/webp":
-                return LoadWebP(www.downloadHandler.data) as T;
+                return await LoadWebPAnim(www.downloadHandler.data) as T;
                 case "video/mp4":
                 case "video/quicktime":
                 return new VideoData(www.url) as T;
@@ -76,12 +76,22 @@ namespace Pixygon.IPFS {
             return new Gif(gifs);
         }
         private static Sprite LoadWebP(byte[] bytes) {
-            var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: true, lError: out var lError);
-            Debug.Log("Generated with WebP!");
-            if (lError == Error.Success)
+            var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: false, lError: out var lError);
+            if (lError == Error.Success) {
+                Debug.Log("Generated with WebP!");
                 return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
+            }
             Debug.LogError("Webp Load Error : " + lError);
             return null;
+        }
+        private static async Task<Sprite> LoadWebPAnim(byte[] bytes) {
+            var r = await WebP.Experiment.Animation.WebP.LoadTexturesAsync(bytes);
+            if (r == null) return null;
+            Sprite s = null;
+            r.OnRender += t => {
+                s = Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
+            };
+            return s;
         }
     }
 
