@@ -9,8 +9,9 @@ namespace Pixygon.IPFS {
     public class IpfsBridge : MonoBehaviour {
         //private const string IpfsUrl = "https://ipfs.atomichub.io/ipfs/";
         private const string IpfsUrl = "https://atomichub-ipfs.com/ipfs/";
+        private const string IpfsThumbnailUrl = "https://ipfs.hivebp.io/thumbnail?hash=";
 
-        public static async Task<T> GetIpfsFile<T>(string hash) where T : Object {
+        public static async Task<T> GetIpfsFile<T>(string hash, bool thumbnail = false) where T : Object {
             if (string.IsNullOrEmpty(hash)) {
                 return new ErrorData("Hash is null!") as T;
             }
@@ -18,7 +19,7 @@ namespace Pixygon.IPFS {
                 var split = hash.Split('/');
                 hash = split[split.Length-1];
             }
-            var www = UnityWebRequest.Get($"{IpfsUrl}{hash}");
+            var www = UnityWebRequest.Get($"{(thumbnail ? IpfsThumbnailUrl : IpfsUrl)}{hash}");
             www.SendWebRequest();
             while(!www.isDone) await Task.Yield();
             if(www.error != null) {
