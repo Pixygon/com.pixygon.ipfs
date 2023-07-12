@@ -79,7 +79,7 @@ namespace Pixygon.IPFS {
         private static async Task<Sprite> LoadWebP(byte[] bytes)
         {
             var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: true, lError: out Error lError);
-            
+            Debug.Log("Generated with WebP!");
             if (lError == Error.Success)
                 return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
             Debug.LogError("Webp Load Error : " + lError);
