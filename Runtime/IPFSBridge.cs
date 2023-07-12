@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeDISevenZeroR.UnityGifDecoder;
@@ -7,6 +8,7 @@ using Pixygon.DebugTool;
 using UnityEngine.UI;
 using WebP;
 using WebP.Experiment.Animation;
+using Object = UnityEngine.Object;
 
 namespace Pixygon.IPFS {
     public class IpfsBridge : MonoBehaviour {
@@ -37,7 +39,7 @@ namespace Pixygon.IPFS {
                 case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
                 case "image/webp":
-                return await LoadWebPAnim(www.downloadHandler.data) as T;
+                return await LoadWebP(www.downloadHandler.data) as T;
                 case "video/mp4":
                 case "video/quicktime":
                 return new VideoData(www.url) as T;
@@ -76,12 +78,19 @@ namespace Pixygon.IPFS {
             return new Gif(gifs);
         }
         private static async Task<Sprite> LoadWebP(byte[] bytes) {
-            var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: false, lError: out var lError);
-            if (lError == Error.Success) {
-                Debug.Log("Generated with WebP!");
-                return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
+            try {
+                var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: false,
+                    lError: out var lError);
+                if (lError == Error.Success) {
+                    Debug.Log("Generated with WebP!");
+                    return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
+                }
+                Debug.LogError("Webp Load Error : " + lError);
             }
-            Debug.LogError("Webp Load Error : " + lError);
+            catch (Exception e) {
+                Debug.Log(e);
+                return await LoadWebPAnim(bytes);
+            }
             return null;
         }
         private static async Task<Sprite> LoadWebPAnim(byte[] bytes) {
