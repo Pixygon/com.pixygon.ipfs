@@ -88,6 +88,7 @@ namespace Pixygon.IPFS {
             var r = await WebP.Experiment.Animation.WebP.LoadTexturesAsync(bytes);
             if (r == null) return null;
             Sprite s = null;
+            r.Stop();
             r.OnRender += t => {
                 s = Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
             };
