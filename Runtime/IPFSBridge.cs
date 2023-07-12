@@ -37,7 +37,7 @@ namespace Pixygon.IPFS {
                 case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
                 case "image/webp":
-                return await LoadWebP(www.downloadHandler.data) as T;
+                return await LoadWebPAnim(www.downloadHandler.data) as T;
                 case "video/mp4":
                 case "video/quicktime":
                 return new VideoData(www.url) as T;
@@ -90,7 +90,9 @@ namespace Pixygon.IPFS {
             Sprite s = null;
             r.Stop();
             r.OnRender += t => {
+                Debug.Log("Generated with WebP! " + r.frame + "/" + r.totalFrame);
                 s = Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
+                r.Stop();
             };
             return s;
         }
