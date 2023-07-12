@@ -51,7 +51,6 @@ namespace Pixygon.IPFS {
             t.LoadImage(bytes);
             return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
         }
-
         private static async Task<Gif> GetGif(byte[] bytes) {
             var gifs = new List<GifData>();
             using(var gifStream = new GifStream(bytes)) {
@@ -76,19 +75,13 @@ namespace Pixygon.IPFS {
             }
             return new Gif(gifs);
         }
-        private static async Task<Sprite> LoadWebP(byte[] bytes)
-        {
-            var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: true, lError: out Error lError);
+        private static Sprite LoadWebP(byte[] bytes) {
+            var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: true, lError: out var lError);
             Debug.Log("Generated with WebP!");
             if (lError == Error.Success)
                 return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
             Debug.LogError("Webp Load Error : " + lError);
             return null;
-            
-            //WebPRendererWrapper<Texture2D> t = await WebP.Experiment.Animation.WebP.LoadTexturesAsync(bytes);
-            //t.
-            
-            return Sprite.Create(t, new Rect(0f, 0f, t.width, t.height), new Vector2(.5f, .5f));
         }
     }
 
