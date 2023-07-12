@@ -37,7 +37,7 @@ namespace Pixygon.IPFS {
                 case "image/jpeg":
                 return GetSprite(www.downloadHandler.data) as T;
                 case "image/webp":
-                return await LoadWebPAnim(www.downloadHandler.data) as T;
+                return await LoadWebP(www.downloadHandler.data) as T;
                 case "video/mp4":
                 case "video/quicktime":
                 return new VideoData(www.url) as T;
@@ -75,7 +75,7 @@ namespace Pixygon.IPFS {
             }
             return new Gif(gifs);
         }
-        private static Sprite LoadWebP(byte[] bytes) {
+        private static async Task<Sprite> LoadWebP(byte[] bytes) {
             var t = Texture2DExt.CreateTexture2DFromWebP(bytes, lMipmaps: true, lLinear: false, lError: out var lError);
             if (lError == Error.Success) {
                 Debug.Log("Generated with WebP!");
