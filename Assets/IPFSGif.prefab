@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1119230089738208080}
   - component: {fileID: 1119230089738208086}
   m_Layer: 0
-  m_Name: IPFSGif
+  m_Name: IpfsGif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

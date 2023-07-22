@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3732403770119813894}
   - component: {fileID: -29699611970237311}
   m_Layer: 0
-  m_Name: IPFSVideo
+  m_Name: IpfsVideo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
