@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Pixygon.IPFS {
     public class IPFSConstructor : MonoBehaviour {
@@ -8,39 +9,45 @@ namespace Pixygon.IPFS {
         [SerializeField] private GameObject _gifPrefab;
         [SerializeField] private GameObject _videoPrefab;
         
+        private GameObject _currentObject;
+        
         public async Task<GameObject> ConstructIpfsObject(string template, bool thumbnail = false) {
+            ClearIpfs();
             var ipfs = await IpfsBridge.GetIpfsFile<Object>(template, thumbnail);
-            GameObject g = null;
             if(this == null) return null;
-            //if(ipfs == null) { 
-            //    Debug.Log("IPFS-file is null! Will it crash and burn?? " + template);
-            //    //return null; 
-            //}
             switch(ipfs) {
                 case VideoData data:
-                g = Instantiate(_videoPrefab, transform);
-                g.GetComponent<IPFSVideo>().PlayVideo(data._url);
+                    _currentObject = Instantiate(_videoPrefab, transform);
+                    _currentObject.GetComponent<IPFSVideo>().PlayVideo(data._url);
                 break;
                 case Sprite sprite:
-                g = Instantiate(_imagePrefab, transform);
-                g.GetComponent<Image>().sprite = sprite;
-                g.GetComponent<Image>().color = Color.white;
-                g.GetComponent<Image>().preserveAspect = true;
+                    _currentObject = Instantiate(_imagePrefab, transform);
+                    _currentObject.GetComponent<Image>().sprite = sprite;
+                    _currentObject.GetComponent<Image>().color = Color.white;
+                    _currentObject.GetComponent<Image>().preserveAspect = true;
                 break;
                 case Gif gif:
-                g = Instantiate(_gifPrefab, transform);
-                g.GetComponent<IPFSGif>().PlayGif(gif);
+                    _currentObject = Instantiate(_gifPrefab, transform);
+                    _currentObject.GetComponent<IPFSGif>().PlayGif(gif);
                 break;
                 case ErrorData error:
                 Debug.Log("IFPS-error: " + error._error);
                 return null;
-                case null:
                 default:
                 Debug.Log("Something went wrong... " + ipfs.GetType().ToString());
                 return null;
-                break;
             }
-            return g;
+            return _currentObject;
+        }
+
+        public void ClearIpfs() {
+            if(_currentObject.GetComponent<Image>() != null)
+                Destroy(_currentObject.GetComponent<Image>().sprite)
+            Destroy(_currentObject);
+        }
+
+        private void OnDestroy() {
+            ClearIpfs();
         }
     }
 }
