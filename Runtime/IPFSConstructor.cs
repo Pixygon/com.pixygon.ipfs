@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Pixygon.IPFS {
-    public class IPFSConstructor : MonoBehaviour {
+    public class IpfsConstructor : MonoBehaviour {
         [SerializeField] private GameObject _imagePrefab;
         [SerializeField] private GameObject _gifPrefab;
         [SerializeField] private GameObject _videoPrefab;
@@ -31,18 +31,18 @@ namespace Pixygon.IPFS {
                     _currentObject.GetComponent<IPFSGif>().PlayGif(gif);
                 break;
                 case ErrorData error:
-                Debug.Log("IFPS-error: " + error._error);
+                Debug.Log("Ipfs-error: " + error._error);
                 return null;
                 default:
-                Debug.Log("Something went wrong... " + ipfs.GetType().ToString());
+                Debug.Log("Something went wrong... " + ipfs.GetType());
                 return null;
             }
             return _currentObject;
         }
 
         public void ClearIpfs() {
-            if(_currentObject.GetComponent<Image>() != null)
-                Destroy(_currentObject.GetComponent<Image>().sprite)
+            if (_currentObject.GetComponent<Image>() != null)
+                Destroy(_currentObject.GetComponent<Image>().sprite);
             Destroy(_currentObject);
         }
 
