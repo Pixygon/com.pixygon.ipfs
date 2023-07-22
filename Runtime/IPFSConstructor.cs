@@ -41,6 +41,7 @@ namespace Pixygon.IPFS {
         }
 
         public void ClearIpfs() {
+            if (_currentObject == null) return;
             if (_currentObject.GetComponent<Image>() != null)
                 Destroy(_currentObject.GetComponent<Image>().sprite);
             Destroy(_currentObject);
