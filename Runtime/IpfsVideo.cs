@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-namespace Pixygon.IPFS {
-    public class IPFSVideo : MonoBehaviour {
+namespace Pixygon.Ipfs {
+    public class IpfsVideo : MonoBehaviour {
         [SerializeField] private VideoPlayer _video;
         [SerializeField] private RawImage _image;
 

@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Pixygon.IPFS {
-    public class IPFSGif : MonoBehaviour {
+namespace Pixygon.Ipfs {
+    public class IpfsGif : MonoBehaviour {
         [SerializeField] private Image _image;
 
         private bool gifLoaded;

@@ -8,7 +8,7 @@ using Pixygon.DebugTool;
 using WebP;
 using Object = UnityEngine.Object;
 
-namespace Pixygon.IPFS {
+namespace Pixygon.Ipfs {
     public class IpfsBridge : MonoBehaviour {
         //private const string IpfsUrl = "https://ipfs.atomichub.io/ipfs/";
         private const string IpfsUrl = "https://atomichub-ipfs.com/ipfs/";
